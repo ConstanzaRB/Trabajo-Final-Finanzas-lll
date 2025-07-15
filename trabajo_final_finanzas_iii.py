@@ -506,17 +506,49 @@ print(f"Valor del bono variable: {B_variable:.3f} millones")
 print(f"Valor del swap para quien paga tasa variable: {V_swap:.3f} millones")
 print(f"Valor del swap para quien paga tasa fija: {-V_swap:.3f} millones")
 
-# Gráfica de beneficios del swap
+# Gráfico de beneficios del swap
 partes = ["Paga Variable\n(Recibe Fija)", "Paga Fija\n(Recibe Variable)"]
 beneficios = [V_swap, -V_swap]
-colores = ["green" if b >= 0 else "red" for b in beneficios]
 
-plt.bar(partes, beneficios, color=colores)
-plt.axhline(0, color='black', linewidth=0.8)
-plt.ylabel("Valor del swap (millones de USD)")
-plt.title("Beneficios del Swap según la parte contratante")
-plt.grid(axis='y')
+# Colores dinámicos y mayor detalle visual
+colores = ["#32CD32" if b >= 0 else "#FF6347" for b in beneficios]  # verde y rojo para los beneficios
+
+# Configuración del gráfico
+plt.figure(figsize=(10, 6))  # Tamaño más grande
+bars = plt.bar(partes, beneficios, color=colores, edgecolor="black", linewidth=1.5)  # Bordes de barras en negro
+
+# Añadir el valor numérico encima de cada barra
+for bar in bars:
+    yval = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval:.2f}', ha='center', va='bottom', fontsize=12, weight='bold')
+
+# Estética del gráfico
+plt.axhline(0, color='black', linewidth=1)  # Línea horizontal en el 0
+plt.ylabel("Valor del swap (millones de USD)", fontsize=12)
+plt.title("Beneficios del Swap según la parte contratante", fontsize=14, weight="bold")
+plt.grid(axis='y', linestyle="--", alpha=0.6)  # Rejilla suave solo para el eje y
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.tight_layout()
+
+# Mostrar gráfico
 plt.show()
+
+# Interpretación de los resultados
+print("\nInterpretación de los resultados:")
+print(f"\n1. Valor del bono fijo: {B_fixed:.3f} millones")
+print("El bono fijo, que paga una tasa de 7% anual, tiene un valor de $102.718 millones, "
+      "lo que indica que, descontando los flujos futuros a la tasa de mercado, este bono tiene un valor presente de este monto.")
+print("\n2. Valor del bono variable: {B_variable:.3f} millones")
+print("El bono variable, basado en la tasa LIBOR de 4.6%, tiene un valor de $100.609 millones, "
+      "lo que refleja una tasa de interés más baja que el bono fijo, resultando en un valor ligeramente menor.")
+print("\n3. Valor del swap para quien paga la tasa variable: {V_swap:.3f} millones")
+print("El valor positivo de $2.109 millones para quien paga la tasa variable (y recibe la tasa fija) "
+      "indica que el swap es favorable para esta parte, dado que la tasa fija de 7% es más alta que la tasa variable.")
+print("\n4. Valor del swap para quien paga la tasa fija: {-V_swap:.3f} millones")
+print("El valor negativo de -$2.109 millones para quien paga la tasa fija (y recibe la tasa variable) "
+      "indica que el swap es desfavorable para esta parte, ya que la tasa fija de 7% es más alta que la tasa variable de 4.6%.")
+
 
 """# **7.-FRA**
 
