@@ -564,3 +564,10 @@ plt.legend(loc="upper left", fontsize=10)
 plt.grid(True, linestyle="--", alpha=0.7)
 plt.tight_layout()
 plt.show()
+
+# Interpretación del resultado FRA
+print(f"\nInterpretación del valor del FRA:")
+print(f"El valor del FRA de ${valor_fra:,.2f} indica el monto presente de la diferencia entre la tasa acordada (RK) y la tasa a plazo (RF_trim), "
+      f"descontada a la tasa de cero cupón (R2_enunciado) hasta el momento final del contrato (T2).")
+print(f"Este valor muestra que la parte que ha acordado pagar la tasa fija (RK) recibiría {valor_fra:,.2f} si el contrato se ejecutara hoy.")
+print(f"Un valor positivo indica que el acuerdo favorece al comprador del FRA, quien recibiría el pago debido a la diferencia de tasas a plazo y la tasa fija acordada.")
